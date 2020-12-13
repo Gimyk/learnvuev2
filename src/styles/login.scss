@@ -1,0 +1,8 @@
+@import "./scss_mixin/tools/mixin";
+.login {
+    max-width: 90%;
+    @include center_item(1em, left);
+    button {
+        width: 100%;
+    }
+}

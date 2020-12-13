@@ -1,0 +1,17 @@
+@import "./scss_mixin/tools/mixin";
+@import "./scss_mixin/tools/variables";
+.list {
+    padding: 1em;
+    @include flexi();
+    align-items: unset;
+    .todos {
+        width: 70%;
+    }
+    form {
+        width: 30%;
+        button {
+            width: 100%;
+            // margin: 0;
+        }
+    }
+}
