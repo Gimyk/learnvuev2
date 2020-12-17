@@ -19,33 +19,28 @@
 
       <button type="submit">Create</button>
     </form>
-
-    <!-- <v-snackbar v-model="snackbar" :timeout="timeout"> -->
-    <v-snackbar v-model="snackbar" :timeout="timeout">
-      {{ text }}
-      <template v-slot:action="{ attrs }">
-        <v-btn color="blue" text v-bind="attrs" @click="snackbar = false">
-          Close
-        </v-btn>
-      </template>
-    </v-snackbar>
+    <Snackbar v-if="snc" :text="text" />
   </div>
 </template>
 
 <script>
 import { http_post, http_get } from "@/assets/http-handler.js";
+import Snackbar from "@/components/Snackbar.vue";
+
 export default {
   name: "Todo",
+  components: {
+    Snackbar,
+  },
   data() {
     return {
+      snc: false,
+      text: "Loading",
       todolist: [],
       todo: {
         name: "",
         type: "",
       },
-      snackbar: false,
-      text: 'My timeout is set to 2000.',
-      timeout: 20000,
     };
   },
   computed: {
@@ -54,12 +49,29 @@ export default {
     },
   },
   methods: {
+    snack(msg) {
+      this.snc = !this.snc;
+      this.text = `${msg}`;
+      setTimeout(() => {
+        this.snc = !this.snc;
+      }, 2000);
+      console.log("calling", this.snc);
+    },
+
     async getTodos() {
       console.log("Fetching data");
       const res_data = await http_get("todos");
       console.log(res_data);
-      if (res_data.status === "successful") {
-        this.todolist = res_data.data;
+      if (res_data) {
+        if (res_data.status === "successful") {
+          this.todolist = res_data.data;
+          this.snack(res_data.message);
+        } else {
+          this.snack(res_data.message);
+          console.log("Something", res_data.message);
+        }
+      } else {
+        this.snack("There might be a connection problem please try again");
       }
     },
 
@@ -72,7 +84,6 @@ export default {
   },
   created() {
     this.getTodos();
-    this.snackbar = true;
   },
 };
 </script>

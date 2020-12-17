@@ -3,10 +3,11 @@
     <Login v-if="toogle" />
     <SignUp v-if="!toogle" />
     <p>- OR - </p>
-    <button @click="toggleV()">
+    <v-btn @click="toggleV()">
       <span v-if="!toogle">Login</span>
       <span v-if="toogle">Sign Up</span>
-    </button>
+    </v-btn>
+
   </div>
 </template>
 

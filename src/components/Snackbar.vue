@@ -14,11 +14,11 @@
 <script>
 export default {
   name: "Snackbar",
+  props: ["text"],
   data() {
     return {
-      snackbar: false,
-      text: "My timeout is set to 2000.",
-      timeout: 20000,
+      snackbar: true,
+      timeout: 2000,
     };
   },
 };
