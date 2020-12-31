@@ -50,7 +50,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions({setUser: "User/setUser", setToken: "User/setToken"}),
+    ...mapActions({ setUser: "User/setUser", setToken: "User/setToken" }),
 
     snack(msg) {
       this.snc = !this.snc;
@@ -62,10 +62,6 @@ export default {
     },
 
     async login() {
-      console.log("Setting data");
-      this.setUser("This is the new user data");
-      this.setToken("This is the new token");
-
       if (this.userdata.email && this.userdata.password) {
         const res_data = await http_post("login", this.userdata);
         console.log(res_data);
@@ -74,7 +70,7 @@ export default {
             this.snack("Login Successful");
             this.setUser(res_data.data.user.username);
             this.setToken(res_data.data.token);
-            // this.$router.push("/todo");\
+            this.$router.push("/todo");
           } else {
             this.snack(res_data.message);
             console.log("Something", res_data.message);
