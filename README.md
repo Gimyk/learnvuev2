@@ -1,5 +1,7 @@
 # vue2prac
 
+This is for prac only. Needs UI & UX fix. 
+
 ## Project setup
 ```
 npm install
