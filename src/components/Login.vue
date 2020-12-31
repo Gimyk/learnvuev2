@@ -32,6 +32,7 @@
 <script>
 import { http_post } from "@/assets/http-handler.js";
 import Snackbar from "@/components/Snackbar.vue";
+import { mapActions } from "vuex";
 
 export default {
   name: "Login",
@@ -49,6 +50,8 @@ export default {
     };
   },
   methods: {
+    ...mapActions({setUser: "User/setUser", setToken: "User/setToken"}),
+
     snack(msg) {
       this.snc = !this.snc;
       this.text = `${msg}`;
@@ -59,18 +62,28 @@ export default {
     },
 
     async login() {
-      const res_data = await http_post("login", this.userdata);
-      console.log(res_data);
-      if (res_data) {
-        if (res_data.status === "successful") {
-          this.snack("Login Successful");
-          this.$router.push("/todo");
+      console.log("Setting data");
+      this.setUser("This is the new user data");
+      this.setToken("This is the new token");
+
+      if (this.userdata.email && this.userdata.password) {
+        const res_data = await http_post("login", this.userdata);
+        console.log(res_data);
+        if (res_data) {
+          if (res_data.status === "successful") {
+            this.snack("Login Successful");
+            this.setUser(res_data.data.user.username);
+            this.setToken(res_data.data.token);
+            // this.$router.push("/todo");\
+          } else {
+            this.snack(res_data.message);
+            console.log("Something", res_data.message);
+          }
         } else {
-          this.snack(res_data.message);
-          console.log("Something", res_data.message);
+          this.snack("There might be a connection problem please try again");
         }
       } else {
-        this.snack("There might be a connection problem please try again");
+        this.snack("Fill in all feilds");
       }
     },
   },
