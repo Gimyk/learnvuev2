@@ -3,9 +3,7 @@
     <h2>Login</h2>
     <form @submit.prevent="login">
       <div class="formitem">
-        <label for="uname"><b>email</b></label>
         <input
-          name="uname"
           type="email"
           v-model="userdata.email"
           placeholder="Enter email"
@@ -14,12 +12,10 @@
       </div>
 
       <div class="formitem">
-        <label for="pwd"><b>Password</b></label>
         <input
           type="password"
           v-model="userdata.password"
           placeholder="Enter Password"
-          name="pwd"
         />
       </div>
 

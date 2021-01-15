@@ -3,7 +3,7 @@ export const UserModule = {
     state: {
         user: {
             username: '',
-            token: 'token this is',
+            token: '',
 
         }
     },

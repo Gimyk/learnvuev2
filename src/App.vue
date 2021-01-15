@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <nav id="nav">
+    <nav id="nav" v-if="username">
       <router-link to="/">Home</router-link>
       <router-link to="/todo">Todos</router-link>
       <router-link to="/about">About</router-link>
@@ -10,6 +10,18 @@
     </div>
   </div>
 </template>
+
+<script>
+import { mapGetters } from "vuex";
+export default {
+  computed: {
+    ...mapGetters({
+      token: "User/getToken",
+      username: "User/getUserName",
+    }),
+  },
+};
+</script>
 
 <style lang="scss">
 @import "@/styles/_global.scss";

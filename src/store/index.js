@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import { UserModule } from './user'
+import { Todo } from './todos'
 
 
 Vue.use(Vuex)
@@ -10,6 +11,7 @@ export default new Vuex.Store({
     mutations: {},
     actions: {},
     modules: {
-        User: UserModule
+        User: UserModule,
+        Todo: Todo
     }
 })

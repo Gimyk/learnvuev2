@@ -36,7 +36,27 @@ async function post_data(endpoint, data, header = '') {
     return await response;
 }
 
+async function delete_data(endpoint, header = '') {
+    const requestOptions = {
+        method: "DELETE",
+        headers: header || { "Content-Type": "application/json" },
+    };
+    console.log('TOken header', header)
+    const response = await fetch(
+        `${url}/${endpoint}`,
+        requestOptions
+    ).then(async(response) => {
+        let rr = await response.json();
+        rr['code'] = response.status
+        return rr;
+    }).catch((error) => {
+        console.log(error)
+    });
+    return await response;
+}
+
 module.exports = {
     http_post: post_data,
     http_get: get_data,
+    http_delete: delete_data,
 };

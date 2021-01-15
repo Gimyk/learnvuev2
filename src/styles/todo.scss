@@ -2,16 +2,20 @@
 @import "./scss_mixin/tools/variables";
 .list {
     padding: 1em;
-    @include flexi();
+    // @include flexi();
     align-items: unset;
     .todos {
-        width: 70%;
+        width: 100%;
+        padding-bottom: 5em;
     }
-    form {
-        width: 30%;
-        button {
-            width: 100%;
-            // margin: 0;
-        }
+    .fab {
+        // width: 100;
+        @include position(fixed, null, 1em, 1em, null)
+    }
+    .todo {
+        @include flexi(row, space-between)
+    }
+    .v-icon {
+        cursor: pointer;
     }
 }

@@ -15,13 +15,14 @@ const routes = [{
     {
         path: '/todo',
         name: 'Todo',
-        component: Todo
+        component: Todo,
+        meta: { requireLogin: true }
     },
     {
         path: '/about',
         name: 'About',
         component: About,
-        meta: { requiresAdmin: true }
+        meta: { requireLogin: true }
     }
 ]
 
@@ -30,8 +31,6 @@ const router = new VueRouter({
 })
 
 router.beforeEach(async(to, from, next) => {
-    // const user = store.state.user.username;
-    // const isAdmin = ;
     const user = store.state.User.user.username;
     if (user) {
         console.log('users', user)
@@ -41,8 +40,8 @@ router.beforeEach(async(to, from, next) => {
         console.log('Theres no username stated');
 
     }
-    const requiresAdmin = to.matched.some(record => record.meta.requiresAdmin);
-    if (requiresAdmin && !user) {
+    const requireLogin = to.matched.some(record => record.meta.requireLogin);
+    if (requireLogin && !user) {
         next({ name: 'Home' });
         console.log('routing')
     } else {
